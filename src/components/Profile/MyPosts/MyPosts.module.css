@@ -1,0 +1,16 @@
+.my_posts{
+    padding-bottom: 6px;
+}
+.inputline{
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.inputline textarea{
+    padding: 3px 5px;
+}
+.inputline button{
+    margin-left: 20px;
+    width: 100px;
+}

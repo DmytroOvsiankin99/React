@@ -1,0 +1,22 @@
+.navbar{
+    grid-area: navbar;
+    background: rgba(0, 255, 191, 0.2);
+    padding: 10px 18px;
+
+}
+
+.navbarInner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item a{    
+    display: block;
+    padding-bottom: 2px;
+    color: rgb(255, 0, 0);
+}
+a.active{
+    color: #000;
+    background: rgba(255, 238, 0 , .5);
+}
