@@ -1,4 +1,9 @@
-import {rerenderTree} from '.././render'
+let rerenderTree = () => { 
+
+}
+
+
+
 
 let state = {
     profilePage: {
@@ -24,7 +29,7 @@ let state = {
     }
 }
 
-export let addPost = () => {
+export const addPost = () => {
     let counter = state.profilePage.postData.length;
     let post= { 
         id: ++counter, 
@@ -33,13 +38,16 @@ export let addPost = () => {
     };
     state.profilePage.postData.push(post);
     state.profilePage.postValue=(''); //Clear textarea after add post 
-    rerenderTree(state);
+    rerenderTree();
 }
 
-
-export let updatePostArea = (areaText) => {
+export const updatePostArea = (areaText) => {
     state.profilePage.postValue = areaText;
-    rerenderTree(state);
+    rerenderTree();
+}
+
+export const callbackFunction = (observe) =>{
+    rerenderTree = observe;  /// объявляем ф-ю вверхнем скоупе, чтоб когда ф-я callbackFunction отработает, ф-я renderTree не умерла
 }
 
 export default state;
