@@ -5,7 +5,8 @@ let state = {
         postData: [
             { id: 1, message: 'Hi', likeCount: "20" },
             { id: 2, message: 'I\'m okay', likeCount: "10" },
-        ]
+        ],
+        postValue: 'textarea in state'
     },
     dialogsPage: {
         dialogsData: [
@@ -23,14 +24,21 @@ let state = {
     }
 }
 
-export let addPost = (postText) => {
+export let addPost = () => {
     let counter = state.profilePage.postData.length;
     let post= { 
         id: ++counter, 
-        message: postText, 
+        message: state.profilePage.postValue, 
         likeCount: "0" 
     };
     state.profilePage.postData.push(post);
+    state.profilePage.postValue=(''); //Clear textarea after add post 
+    rerenderTree(state);
+}
+
+
+export let updatePostArea = (areaText) => {
+    state.profilePage.postValue = areaText;
     rerenderTree(state);
 }
 

@@ -11,14 +11,18 @@ const MyPost = (props) => {
     let savePost = React.createRef();
 
     let addPosts = () =>{
-        let text = savePost.current.value;
-        props.addPost(text);
+        props.addPost();
+    }
+
+    let updatePostArea = () =>{
+        let text =  savePost.current.value;
+        props.updatePostArea(text)
     }
 
     return (
         <div>
             <div className={mod.inputline}>
-                <textarea ref={ savePost }></textarea>
+                <textarea ref={ savePost }  onChange={updatePostArea} value={props.postValue}/>
                 <button onClick={ addPosts }>Add Post</button>
             </div>
             <div className={mod.my_posts}>
