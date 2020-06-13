@@ -3,15 +3,15 @@ import React from 'react'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import state, {addPost, updatePostArea, callbackFunction} from './Redux/state'
+import store from './Redux/state'
 
 let rerenderTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <App
-                state = {state}
-                updatePostArea={updatePostArea}
-                addPost={addPost}
+                state={store.getState()}
+                addPost ={store.addPost.bind(store)}
+                updatePostArea = {store.updatePostArea.bind(store)}
             />
         </React.StrictMode>,
         document.getElementById('root')
@@ -19,6 +19,6 @@ let rerenderTree = () => {
 };
 rerenderTree();
 
-callbackFunction( rerenderTree );
+store.callbackFunction( rerenderTree );
 
 serviceWorker.unregister();

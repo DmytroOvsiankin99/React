@@ -6,9 +6,9 @@ import DialogItem from './Dialog/DialogItem';
 
 const Dialogs = (props) => {
 
-    let dialogsArr = props.dialogsData.map((el) => <DialogItem id={el.id} dialogName={el.dialogName} dialogImg={el.src} />)
+    let dialogsArr = props.state.dialogsPage.dialogsData.map((el) => <DialogItem id={el.id} dialogName={el.dialogName} dialogImg={el.src} />)
 
-    let messageArr = props.messagesData.map((el) => <Message id={el.id} message={el.message} src={el.src} classRight={el.classRight} />)
+    let messageArr = props.state.dialogsPage.messagesData.map((el) => <Message id={el.id} message={el.message} src={el.src} classRight={el.classRight} />)
 
     let save_message = React.createRef();
 
