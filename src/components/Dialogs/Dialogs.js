@@ -1,8 +1,9 @@
-import React from 'react';
-import mod from './Dialogs.module.css';
-import { NavLink } from 'react-router-dom';
-import Message from './Message/Message';
-import DialogItem from './Dialog/DialogItem';
+import React from 'react'
+import mod from './Dialogs.module.css'
+import { NavLink } from 'react-router-dom'
+import Message from './Message/Message'
+import DialogItem from './Dialog/DialogItem'
+import {updateDialogsActionCreator, addMessageActionCreate} from '../../Redux/state'
 
 const Dialogs = (props) => {
 
@@ -10,10 +11,13 @@ const Dialogs = (props) => {
 
     let messageArr = props.state.dialogsPage.messagesData.map((el) => <Message id={el.id} message={el.message} src={el.src} classRight={el.classRight} />)
 
-    let save_message = React.createRef();
-
-    let send_message = () =>{
-        let mes = save_message.current.value;
+    let send_message = () => {
+        props.dispatch(addMessageActionCreate())
+    }
+    
+    let updateMessageArea = (e) => {
+        let areaText = e.target.value; //e - событие , target.value - наша цель == значение 
+        props.dispatch(updateDialogsActionCreator(areaText))
     }
 
     return (
@@ -28,7 +32,12 @@ const Dialogs = (props) => {
                     {messageArr}
                 </ul>
                 <div className={mod.send_message_wrap}>
-                    <textarea ref={save_message}> </textarea>
+                    <textarea 
+                        onChange={updateMessageArea} 
+                        value={props.state.dialogsPage.messageValue} 
+                        className={mod.textareaMessage} 
+                        placeholder={'Write your message'}
+                        />
                     <button onClick={send_message}>Send message</button>
                 </div>
             </div>

@@ -50,3 +50,7 @@
     align-items: flex-end;
     margin-top: 10px;
 }
+
+.textareaMessage{
+    padding: 6px;
+}

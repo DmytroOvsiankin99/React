@@ -17,11 +17,11 @@ const App = (props) => {
 				<div className="main_content">
 					<Route path="/profilecontent" render={ () => <ProfileContent 
 						state={props.state}	
-						addPost={props.addPost}
-						updatePostArea={props.updatePostArea} 
+						dispatch={props.dispatch}
 					/> } />
 					<Route path="/dialogs" render={ () => <Dialogs 
 						state={props.state}	
+						dispatch={props.dispatch}
 					/> }  />
 					<Route path="/news" render={ () => <News /> } />
 					<Route path="/music" render={ () => <Music /> } />

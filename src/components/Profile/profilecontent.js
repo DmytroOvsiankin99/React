@@ -10,8 +10,7 @@ const ProfileContent = (props) => {
             <div>Main Content</div>
             <MyPost
                 state={props.state}
-                addPost={props.addPost}
-                updatePostArea={props.updatePostArea}
+                dispatch={props.dispatch}
             />
         </main>
     )

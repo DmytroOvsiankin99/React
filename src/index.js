@@ -10,8 +10,7 @@ let rerenderTree = () => {
         <React.StrictMode>
             <App
                 state={store.getState()}
-                addPost ={store.addPost.bind(store)}
-                updatePostArea = {store.updatePostArea.bind(store)}
+                dispatch ={store.dispatch.bind(store)}
             />
         </React.StrictMode>,
         document.getElementById('root')
