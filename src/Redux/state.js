@@ -1,7 +1,5 @@
-const ADDPOST = "ADD-POST",
-    UPDATEPOST = 'UPDATE-POST-AREA',
-    ADDDIALOGSMESSAGE = 'ADD-DIALOGS-MESSAGE',
-    UPDATEDIALOGS = 'UPDATE-DIALOGS';
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
 
 let store = {
     _state: {
@@ -31,60 +29,19 @@ let store = {
     getState() {
         return this._state;
     },
-    callbackFunction(observe) {
-        this._rerenderTree = observe; /// объявляем ф-ю вверхнем скоупе, чтоб когда ф-я callbackFunction отработает, 
-        //ф-я renderTree не умерла
+    _callSubscriber(observe) {
+        this._renderTree = observe; /// объявляем ф-ю вверхнем скоупе, чтоб когда ф-я callbackFunction отработает, 
+        //ф-я _callSubscriber не умерла
     },
-    _rerenderTree() {
+    _renderTree() {
     },
     dispatch(action) {
-        if (action.type === ADDPOST) {
-            let counter = this._state.profilePage.postData.length;
-            let post = {
-                id: ++counter,
-                message: this._state.profilePage.postValue,
-                likeCount: "0"
-            };
-            this._state.profilePage.postData.push(post);
-            this._state.profilePage.postValue = (''); //Clear textarea after add post 
-            this._rerenderTree();
-        }
-        else if (action.type === UPDATEPOST) {
-            this._state.profilePage.postValue = action.areaText;
-            this._rerenderTree();
-        }
-        else if (action.type === ADDDIALOGSMESSAGE) {
-            let counter = this._state.dialogsPage.messagesData.length;
-            let message = {
-                id: ++counter,
-                message: this._state.dialogsPage.messageValue,
-                src: this._state.dialogsPage.messagesData.src
-            };
-            this._state.dialogsPage.messagesData.push(message);
-            this._state.dialogsPage.messageValue = (''); //Clear textarea after add post 
-            this._rerenderTree();
-        }
-        else if (action.type === UPDATEDIALOGS) {
-            this._state.dialogsPage.messageValue = action.areaText;
-            this._rerenderTree();
-        }
+        
+        this._state.profilePage = profileReducer(this._state.profilePage , action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage , action);
+        
+        this._renderTree();
     }
 }
-
-export const addPostActionCreate = () => ({ type: ADDPOST })
-
-export const updatePostActionCreator = (areaText) =>
-    ({
-        type: UPDATEPOST,
-        areaText: areaText,
-    })
-
-export const addMessageActionCreate = () => ({ type: ADDDIALOGSMESSAGE })
-
-export const updateDialogsActionCreator = (areaText) =>
-    ({
-        type: UPDATEDIALOGS,
-        areaText: areaText,
-    })
 
 export default store;

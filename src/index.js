@@ -18,6 +18,6 @@ let rerenderTree = () => {
 };
 rerenderTree();
 
-store.callbackFunction( rerenderTree );
+store._callSubscriber( rerenderTree );
 
 serviceWorker.unregister();
