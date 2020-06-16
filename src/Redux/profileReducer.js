@@ -1,11 +1,19 @@
 const ADDPOST = "ADD-POST",
     UPDATEPOST = 'UPDATE-POST-AREA';
 
-const profileReducer = (state, action) => {
+let initialState = {  //инициализируем наш дефолтный state
+    postData: [
+        { id: 1, message: 'Hi', likeCount: "20" },
+        { id: 2, message: 'I\'m okay', likeCount: "10" },
+    ],
+    postValue: ''
+}
 
+const profileReducer = ( state = initialState, action ) => { //state = initialState - значение по умолчанию, 
+    //чтоб что-то возвращалось в наш state в redux
     switch (action.type) {
         case ADDPOST:
-            let counter = state.postData.length; //обращаемся к параметру state, а не к _state в store
+            let counter = state.postData.length; //обращаемся к параметру функции state, а не к _state в store
             let post = {
                 id: ++counter,
                 message: state.postValue,

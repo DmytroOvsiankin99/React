@@ -29,17 +29,15 @@ let store = {
     getState() {
         return this._state;
     },
-    _callSubscriber(observe) {
+    subscribe(observe) {
         this._renderTree = observe; /// объявляем ф-ю вверхнем скоупе, чтоб когда ф-я callbackFunction отработает, 
-        //ф-я _callSubscriber не умерла
+        //ф-я subscriber не умерла
     },
     _renderTree() {
     },
     dispatch(action) {
-        
         this._state.profilePage = profileReducer(this._state.profilePage , action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage , action);
-        
         this._renderTree();
     }
 }
