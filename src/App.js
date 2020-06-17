@@ -4,7 +4,7 @@ import './App.css';
 import { Route, BrowserRouter } from "react-router-dom";
 import Navbar from './components/Navbar/navbar';
 import ProfileContent from './components/Profile/profilecontent';
-import Dialogs from './components/Dialogs/Dialogs';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Settings from './components/Settings/Settings';
 import Music from './components/Music/Music';
 import News from './components/News/News';
@@ -15,17 +15,15 @@ const App = (props) => {
 			<div className="app_wrapper_grid">
 				<Navbar />
 				<div className="main_content">
-					<Route path="/profilecontent" render={ () => <ProfileContent 
-						state={props.state}	
-						dispatch={props.dispatch}
-					/> } />
-					<Route path="/dialogs" render={ () => <Dialogs 
-						state={props.state}	
-						dispatch={props.dispatch}
-					/> }  />
-					<Route path="/news" render={ () => <News /> } />
-					<Route path="/music" render={ () => <Music /> } />
-					<Route path="/settings" render={ () => <Settings /> } />
+					<Route path="/profilecontent" render={() => <ProfileContent
+						store={props.store}
+					/>} />
+					<Route path="/dialogs" render={() => <DialogsContainer
+						store={props.store}
+					/>} />
+					<Route path="/news" render={() => <News />} />
+					<Route path="/music" render={() => <Music />} />
+					<Route path="/settings" render={() => <Settings />} />
 				</div>
 			</div>
 		</BrowserRouter>

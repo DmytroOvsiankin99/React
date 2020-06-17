@@ -1,29 +1,26 @@
 import React from 'react';
 import mod from './MyPosts.module.css';
 import Post from './Post/Post';
-import { addPostActionCreate, updatePostActionCreator } from '../../../Redux/profileReducer';
-
 
 
 const MyPost = (props) => {
 
-    let postArr = props.state.profilePage.postData.map((el) => <Post id={el.id} message={el.message} likeCount={el.likeCount} />)
+    let postArr = props.postData.map((el) => <Post id={el.id} message={el.message} likeCount={el.likeCount} />)
 
     let addPosts = () => {
-        props.dispatch(addPostActionCreate());
+        props.addPosts();
     }
 
     let updatePostArea = (e) => {
         let areaText = e.target.value; //e - событие , target.value - наша цель == значение 
-        props.dispatch(updatePostActionCreator(areaText));
+        props.updatePostArea(areaText)
     }
-
     return (
         <div>
             <div className={mod.inputline}>
                 <textarea
                     onChange={updatePostArea}
-                    value={props.state.profilePage.postValue} 
+                    value={props.value} 
                     placeholder = {'Write your post'}
                     />
                 <button onClick={addPosts}>Add Post</button>

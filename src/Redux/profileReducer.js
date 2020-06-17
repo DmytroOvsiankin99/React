@@ -29,7 +29,6 @@ const profileReducer = ( state = initialState, action ) => { //state = initialSt
 
         default: return state; //Если в case не нашлось нужного нам свойства 
     }
-
 }
 
 export default profileReducer;
