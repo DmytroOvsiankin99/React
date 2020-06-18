@@ -8,9 +8,7 @@ const ProfileContent = (props) => {
     return (
         <main className={mod.main_content}>
             <div>Main Content</div>
-            <MyPostContainer
-                store={props.store}
-            />
+            <MyPostContainer/>
         </main>
     )
 }

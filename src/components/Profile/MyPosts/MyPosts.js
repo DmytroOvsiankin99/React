@@ -5,7 +5,7 @@ import Post from './Post/Post';
 
 const MyPost = (props) => {
 
-    let postArr = props.postData.map((el) => <Post id={el.id} message={el.message} likeCount={el.likeCount} />)
+    let postArr = props.profilePage.postData.map((el) => <Post id={el.id} message={el.message} likeCount={el.likeCount} />)
 
     let addPosts = () => {
         props.addPosts();
@@ -20,7 +20,7 @@ const MyPost = (props) => {
             <div className={mod.inputline}>
                 <textarea
                     onChange={updatePostArea}
-                    value={props.value} 
+                    value={props.profilePage.postValue} 
                     placeholder = {'Write your post'}
                     />
                 <button onClick={addPosts}>Add Post</button>
