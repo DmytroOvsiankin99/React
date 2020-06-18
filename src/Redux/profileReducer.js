@@ -9,7 +9,7 @@ let initialState = {  //инициализируем наш дефолтный s
     postValue: ''
 }
 
-const profileReducer = ( state = initialState, action ) => { //state = initialState - значение по умолчанию, 
+const profileReducer = (state = initialState, action) => { //state = initialState - значение по умолчанию, 
     //чтоб что-то возвращалось в наш state в redux
     switch (action.type) {
         case ADDPOST:
@@ -19,14 +19,20 @@ const profileReducer = ( state = initialState, action ) => { //state = initialSt
                 message: state.postValue,
                 likeCount: "0"
             };
-            state.postData.push(post);
-            state.postValue = (''); //Clear textarea after add post 
-            return state;  //делаем return вместо break, ибо при вызове return ф-я перестаёт работать
+            let copyState = { ...state }  //поверхностно копируем state в новый объект чтоб ф-я connetc сравнила новый и старый объект 
+                                            //и в случаии изменений перерисовала DOM
+                copyState.postData = [...state.postData] //так же копируем массив
+
+            copyState.postData.push(post); 
+            copyState.postValue = (''); //Clear textarea after add post 
+            return copyState;  //делаем return вместо break, ибо при вызове return ф-я перестаёт работать
 
         case UPDATEPOST:
-            state.postValue = action.areaText;
-            return state;
-
+            {
+                let copyState = { ...state } 
+                copyState.postValue = action.areaText;
+                return copyState;
+            }
         default: return state; //Если в case не нашлось нужного нам свойства 
     }
 }

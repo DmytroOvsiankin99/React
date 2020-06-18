@@ -3,7 +3,6 @@ import { addPostActionCreate, updatePostActionCreator } from '../../../Redux/pro
 import MyPost from './MyPosts';
 import { connect } from 'react-redux';
 
-
 let mapStateToProps = (state) => {
     return {
         profilePage: state.profilePage,

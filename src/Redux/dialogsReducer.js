@@ -27,13 +27,19 @@ const dialogsReducer = (state  = initialState, action) => {
                 message: state.messageValue,
                 src: state.messagesData.src
             };
-            state.messagesData.push(message);
-            state.messageValue = (''); //Clear textarea after add post 
-            return state;  //делаем return вместо break, ибо при вызове return ф-я перестаёт работать
+            let copyState = {...state};//поверхностно копируем state в новый объект чтоб ф-я connetc сравнила новый и старый объект 
+                                        //и в случаии изменений перерисовала DOM
+                copyState.messagesData = [...state.messagesData];
+                copyState.messagesData.push(message);
+                copyState.messageValue = (''); //Clear textarea after add post 
+            return copyState;  //делаем return вместо break, ибо при вызове return ф-я перестаёт работать
 
         case UPDATEDIALOGS:
-            state.messageValue = action.areaText;
-            return state;
+            {
+                let copyState = {...state};
+                copyState.messageValue = action.areaText;
+                return copyState;
+            }
 
         default: return state; //Если в case не нашлось нужного нам свойства 
     }
