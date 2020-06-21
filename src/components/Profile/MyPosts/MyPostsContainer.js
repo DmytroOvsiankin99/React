@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 
 let mapStateToProps = (state) => {
     return {
-        profilePage: state.profilePage,
+        profilePage: state.profilePage, //При изменении state.profilePage мы перерисуем нашу компоненту, 
+        //потому что connect подписан на store в index.js (<Provide>), так же с диспатчем.
     }
 }
 

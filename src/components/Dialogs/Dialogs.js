@@ -7,9 +7,9 @@ const Dialogs = (props) => {
     
     
 
-    let dialogsArr = props.dialogsPage.dialogsData.map((el) => <DialogItem id={el.id} dialogName={el.dialogName} dialogImg={el.src} />)
+    let dialogsArr = props.dialogsPage.dialogsData.map((el) => <DialogItem id={el.id} key={el.id} dialogName={el.dialogName} dialogImg={el.src} />)
 
-    let messageArr = props.dialogsPage.messagesData.map((el) => <Message id={el.id} message={el.message} src={el.src} classRight={el.classRight} />)
+    let messageArr = props.dialogsPage.messagesData.map((el) => <Message id={el.id} key={el.id} message={el.message} src={el.src} classRight={el.classRight} />)
 
 
     let send_message = () => {

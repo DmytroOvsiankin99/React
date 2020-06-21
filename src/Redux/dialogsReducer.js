@@ -18,7 +18,7 @@ let initialState = {
     messageValue: '',
 }
 
-const dialogsReducer = (state  = initialState, action) => {
+const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADDDIALOGSMESSAGE:
             let counter = state.messagesData.length;  //обращаемся к параметру state
@@ -27,20 +27,18 @@ const dialogsReducer = (state  = initialState, action) => {
                 message: state.messageValue,
                 src: state.messagesData.src
             };
-            let copyState = {...state};//поверхностно копируем state в новый объект чтоб ф-я connetc сравнила новый и старый объект 
-                                        //и в случаии изменений перерисовала DOM
-                copyState.messagesData = [...state.messagesData];
-                copyState.messagesData.push(message);
-                copyState.messageValue = (''); //Clear textarea after add post 
-            return copyState;  //делаем return вместо break, ибо при вызове return ф-я перестаёт работать
-
-        case UPDATEDIALOGS:
-            {
-                let copyState = {...state};
-                copyState.messageValue = action.areaText;
-                return copyState;
+            return {
+                ...state, //поверхностно копируем state в новый объект чтоб ф-я connetc сравнила новый и старый объект 
+                //и в случаии изменений перерисовала DOM
+                messagesData: [...state.messagesData, message],//Дальше копируем только то, что нам нужно, не тратим память напрасно
+                messageValue: ''//Clear textarea after add post 
             }
-
+        //делаем return вместо break, ибо при вызове return ф-я перестаёт работать
+        case UPDATEDIALOGS:
+            return {
+                ...state,
+                messageValue: action.areaText,
+            }
         default: return state; //Если в case не нашлось нужного нам свойства 
     }
 }

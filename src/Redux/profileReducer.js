@@ -19,19 +19,16 @@ const profileReducer = (state = initialState, action) => { //state = initialStat
                 message: state.postValue,
                 likeCount: "0"
             };
-            let copyState = { ...state }  //поверхностно копируем state в новый объект чтоб ф-я connetc сравнила новый и старый объект 
-                                            //и в случаии изменений перерисовала DOM
-                copyState.postData = [...state.postData] //так же копируем массив
-
-            copyState.postData.push(post); 
-            copyState.postValue = (''); //Clear textarea after add post 
-            return copyState;  //делаем return вместо break, ибо при вызове return ф-я перестаёт работать
-
+            return {
+                ...state,//поверхностно копируем state в новый объект чтоб ф-я connetc сравнила новый и старый объект 
+                //и в случаии изменений перерисовала DOM
+                postData: [...state.postData, post], //Дальше копируем только то, что нам нужно, не тратим память напрасно
+                postValue: '',//Clear textarea after add post 
+            }
         case UPDATEPOST:
-            {
-                let copyState = { ...state } 
-                copyState.postValue = action.areaText;
-                return copyState;
+            return {
+                ...state,
+                postValue: action.areaText
             }
         default: return state; //Если в case не нашлось нужного нам свойства 
     }
