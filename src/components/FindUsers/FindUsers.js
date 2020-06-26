@@ -1,37 +1,61 @@
 import React from 'react'
 import mod from './FindUsers.module.css'
+import * as axios from 'axios'
+import userPhoto from '../../assest/images/user-def.png'
 
-const FindUsers = (props) => {
-
-    if (props.usersData.length === 0) {
-        props.setUsersData([
-            { id: '1', usersSrc: "https://i.stack.imgur.com/ILTQq.png", followed: false, name: 'Dmitriy', location: { city: 'Kharkiv', country: 'Ukraine' }, describe: 'Looking job React Dev' },
-            { id: '2', usersSrc: "https://i.stack.imgur.com/ILTQq.png", followed: true, name: 'Sergei', location: { city: 'Kharkiv', country: 'Ukraine' }, describe: 'Looking job React Dev' },
-            { id: '3', usersSrc: "https://i.stack.imgur.com/ILTQq.png", followed: true, name: 'Reiner', location: { city: 'Kharkiv', country: 'Ukraine' }, describe: 'Looking job React Dev' },
-            { id: '4', usersSrc: "https://i.stack.imgur.com/ILTQq.png", followed: true, name: 'Alex', location: { city: 'Kharkiv', country: 'Ukraine' }, describe: 'Looking job React Dev' },
-        ]);
+class FindUsers extends React.Component {
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsersData(response.data.items);
+                this.props.setTotalUsers(response.data.totalCount)
+            });
     }
 
-    return (
-        <div>
-            {props.usersData.map((el) =>
+    clickFoo(pageNum) {
+        this.props.editCurrentPage(pageNum)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsersData(response.data.items);
+            });
+    }
+
+    render() {
+
+        let sizePaggination = Math.ceil(this.props.totalCountUsers / this.props.pageSize);
+        let pages = [];
+
+        for (let i = 1; i <= sizePaggination; i++) {
+            pages.push(i);
+        }
+
+        return <div>
+            <div className={mod.paggination}>
+                {pages.map((el) => <span
+                    className={this.props.currentPage === (el) && mod.selectedPaggination}
+                    onClick={ (e) => {this.clickFoo(el)} }>
+                    {el}
+                </span>)}
+            </div>
+            {this.props.usersData.map((el) =>
                 <div key={el.id}  >
                     <div>
-                        <img src={el.usersSrc} className={mod.usersImg} />
+                        <img src={el.photos.small != null ? el.photos.small : userPhoto} className={mod.usersImg} />
                         {el.followed ?
-                            <button onClick={() => { props.unfollow(el.id) }}>Unfollow</button>
+                            <button onClick={() => { this.props.unfollow(el.id) }}>Unfollow</button>
                             :
-                            <button onClick={() => { props.follow(el.id) }}>follow</button>}
+                            <button onClick={() => { this.props.follow(el.id) }}>follow</button>}
                     </div>
                     <div className={mod.info_wrap}>
                         <div>{el.name}</div>
-                        <div>{el.location.city}</div>
-                        <div>{el.describe}</div>
-                        <div>{el.location.country}</div>
+                        <div>{"Kharkiv"}</div>
+                        <div>{el.status}</div>
+                        <div>{"Ukraine"}</div>
                     </div>
                 </div>)}
         </div>
-    )
+    }
 }
+
 
 export default FindUsers;
