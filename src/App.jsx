@@ -1,22 +1,21 @@
 import React from 'react'
-import logo from './logo.svg'
 import './App.css'
 import { Route, BrowserRouter } from "react-router-dom"
-import Navbar from './components/Navbar/navbar'
-import ProfileContent from './components/Profile/profilecontent'
 import DialogsContainer from './components/Dialogs/DialogsContainer'
 import Settings from './components/Settings/Settings'
 import Music from './components/Music/Music'
 import News from './components/News/News'
 import FindUsersContainer from './components/FindUsers/FindUsersContainer'
+import ProfileContainer from './components/Profile/profileContainer'
+import NavbarContainer from './components/Navbar/navbarContainer'
 
 const App = (props) => {
 	return (
 		<BrowserRouter>
 			<div className="app_wrapper_grid">
-				<Navbar />
+				<NavbarContainer />
 				<div className="main_content">
-					<Route path="/profilecontent" render={() => <ProfileContent/>} />
+					<Route path="/profilecontent/:userId?" render={() => <ProfileContainer/>} />
 					<Route path="/dialogs" render={() => <DialogsContainer/>} />
 					<Route path="/news" render={() => <News />} />
 					<Route path="/music" render={() => <Music />} />

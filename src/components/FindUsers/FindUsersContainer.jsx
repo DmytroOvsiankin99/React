@@ -3,36 +3,36 @@ import * as axios from 'axios'
 import Users from './Users';
 import { connect } from 'react-redux';
 import userPhoto from '../../assest/images/user-def.png'
-import { usersUnollowAC, usersFollowAC, setUsersData, editCurrentPageAC, setTotalUsersAC, setIsFetchingAC } from '../../Redux/FindUserReducer'
+import { follow, unfollow, setUsersData, editCurrentPage, setTotalUsers, setIsFetching , toggleIsFollowing} from '../../Redux/FindUserReducer'
 import Preloader from '../common/preloader/preolader';
+import { getUsers } from '../../API/api';
 
 
 class FindUsersAPIComponent extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     componentDidMount() {
-        this.props.toggleFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.toggleFetching(false);
-                this.props.setUsersData(response.data.items);
-                this.props.setTotalUsers(response.data.totalCount)
+        this.props.setIsFetching(true);
+            getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+                this.props.setIsFetching(false);
+                this.props.setUsersData(data.items);
+                this.props.setTotalUsers(data.totalCount)
             });
     }
 
     clickFoo(pageNum) {
-        debugger;
-        this.props.toggleFetching(true);
+        this.props.setIsFetching(true);
         this.props.editCurrentPage(pageNum);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.toggleFetching(false);
-                this.props.setUsersData(response.data.items);
+        getUsers(pageNum, this.props.pageSize).then(data => {
+                this.props.setIsFetching(false);
+                this.props.setUsersData(data.items);
             });
-        debugger;
     }
 
     render() {
         return <>
-            {this.props.isFatching ? <Preloader/> : null}
+            {this.props.isFatching ? <Preloader /> : null}
             <Users
                 totalCountUsers={this.props.totalCountUsers}
                 pageSize={this.props.pageSize}
@@ -54,33 +54,18 @@ let mapStateToProps = (state) => {
         currentPage: state.findUsersPage.currentPage,
         totalCountUsers: state.findUsersPage.totalCountUsers,
         isFatching: state.findUsersPage.isFatching,
+        followingInProgres: state.findUsersPage.followingInProgres
     }
 }
 
-
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userID) => {
-            dispatch(usersFollowAC(userID));
-        },
-        unfollow: (userID) => {
-            dispatch(usersUnollowAC(userID));
-        },
-        setUsersData: (users) => {
-            dispatch(setUsersData(users));
-        },
-        editCurrentPage: (currentPage) => {
-            dispatch(editCurrentPageAC(currentPage));
-        },
-        setTotalUsers: (TotalUsers) => {
-            dispatch(setTotalUsersAC(TotalUsers));
-        },
-        toggleFetching: (isFetching) => {
-            dispatch(setIsFetchingAC(isFetching));
-        }
-    }
-}
-
-let FindUsersContainer = connect(mapStateToProps, mapDispatchToProps)(FindUsersAPIComponent);
+let FindUsersContainer = connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsersData,
+    editCurrentPage,
+    setTotalUsers,
+    setIsFetching,
+    toggleIsFollowing
+})(FindUsersAPIComponent);
 
 export default FindUsersContainer;

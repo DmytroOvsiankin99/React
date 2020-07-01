@@ -1,12 +1,13 @@
 const ADDPOST = "ADD-POST",
-    UPDATEPOST = 'UPDATE-POST-AREA';
-
+    UPDATEPOST = 'UPDATE-POST-AREA',
+    SETPROFILEUSERS = "SETPROFILEUSERS";
 let initialState = {  //инициализируем наш дефолтный state
     postData: [
         { id: 1, message: 'Hi', likeCount: "20" },
         { id: 2, message: 'I\'m okay', likeCount: "10" },
     ],
-    postValue: ''
+    postValue: '',
+    profile: null
 }
 
 const profileReducer = (state = initialState, action) => { //state = initialState - значение по умолчанию, 
@@ -30,6 +31,11 @@ const profileReducer = (state = initialState, action) => { //state = initialStat
                 ...state,
                 postValue: action.areaText
             }
+        case SETPROFILEUSERS:
+            return {
+                ...state,
+                profile: action.profile
+            }
         default: return state; //Если в case не нашлось нужного нам свойства 
     }
 }
@@ -41,3 +47,4 @@ export const updatePostActionCreator = (areaText) =>
         type: UPDATEPOST,
         areaText: areaText,
     })
+export const setProfileUser = (profile) => ({ type: SETPROFILEUSERS , profile})

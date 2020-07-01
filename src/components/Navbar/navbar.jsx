@@ -2,9 +2,12 @@ import React from 'react';
 import mod from './navbar.module.css'; 
 import { NavLink } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props) => {
     return (
         <nav className={mod.navbar}>
+            <div className={mod.loginBlock}>
+                {props.isAuth ? props.login : <NavLink to={'/login'}>Login</NavLink>}
+            </div>
             <ul className={mod.navbarInner}>
                 <li className={mod.item}>
                     <NavLink to="/profilecontent" activeClassName={mod.active}>Profile</NavLink>
