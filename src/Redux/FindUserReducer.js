@@ -12,7 +12,7 @@ let initState = {
     totalCountUsers: 0,
     currentPage: 1,
     isFatching: false,
-    followingInProgres: false
+    followingInProgres: []
 }
 
 let usersReudcer = (state = initState, action) => {
@@ -61,7 +61,10 @@ let usersReudcer = (state = initState, action) => {
             }
         case TOGGLE_IS_FOLLOWING:
             return {
-                ...state, followingInProgres: action.followingInProgres,
+                ...state,
+                followingInProgres: action.followingInProgres
+                    ? [...state.followingInProgres, action.userId]
+                    : state.followingInProgres.filter(id => id != action.userId)
             }
 
         default: return state;
@@ -74,6 +77,6 @@ export const setUsersData = (users) => ({ type: SET_USER, users });
 export const editCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
 export const setTotalUsers = (total) => ({ type: SET_TOTAL_USERS, total: total })
 export const setIsFetching = (isFatching) => ({ type: TOGGLE_IS_FETCHING, isFatching })
-export const toggleIsFollowing = (followingInProgres) => ({ type: TOGGLE_IS_FOLLOWING, followingInProgres })
+export const toggleIsFollowing = (followingInProgres, userId) => ({ type: TOGGLE_IS_FOLLOWING, followingInProgres , userId})
 
 export default usersReudcer;

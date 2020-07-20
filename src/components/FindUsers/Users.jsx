@@ -30,8 +30,8 @@ let Users = (props) => {
                         <img src={el.photos.small != null ? el.photos.small : props.userPhoto} className={mod.usersImg} />
                     </NavLink>
                     {el.followed
-                        ? <button disabled={props.followingInProgres} onClick={() => {
-                            props.toggleIsFollowing(true)
+                        ? <button disabled={props.toggleIsFollowing.some(id=>id===el.id)} onClick={() => {
+                            props.toggleIsFollowing(true, el.id)
                             axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
                                 withcredentials: true,
                                 headers: {
@@ -42,11 +42,11 @@ let Users = (props) => {
                                     if (response.data.resultCode == 0) {
                                         props.unfollow(el.id)
                                     }
-                                    props.toggleIsFollowing(false)
+                                    props.toggleIsFollowing(false, el.id)
                                 });
                         }}>Unfollow</button>
-                        : <button disabled={props.followingInProgres} onClick={() => {
-                        props.toggleIsFollowing(true)
+                        : <button disabled={props.toggleIsFollowing.some(id=>id===el.id)} onClick={() => {
+                        props.toggleIsFollowing(true, el.id)
                         axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {}, {
                             withcredentials: true,
                             headers: {
@@ -57,7 +57,7 @@ let Users = (props) => {
                                 if (response.data.resultCode == 0) {
                                     props.follow(el.id)
                                 }
-                                props.toggleIsFollowing(false)
+                                props.toggleIsFollowing(false, el.id)
                             });
                     }}>follow</button>}
                 </div>

@@ -42,6 +42,8 @@ class FindUsersAPIComponent extends React.Component {
                 userPhoto={this.userPhoto}
                 usersData={this.props.usersData}
                 clickFoo={this.clickFoo}
+                toggleIsFollowing ={this.props.toggleIsFollowing}
+                followingInProgres={this.props.followingInProgres}
             />
         </>
     }
