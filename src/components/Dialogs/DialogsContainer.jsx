@@ -1,96 +1,83 @@
-import React, { useCallback, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TextInput, View, SafeAreaView, SectionList, StatusBar, Dimensions, Button, Linking, TouchableOpacity } from "react-native";
 import { BackspaceButton } from './BackspaceButton/index' //change import path
 
 export const SelectList = () => {
+    const contactsHashProt = {}
+    const [contactHash, setContactHash] = useState({});
+    const [contacts, setContacts] = useState([
+        {
+            displayName: 's A'
+        }, {
+            displayName: 'a A'
+        }, {
+            displayName: 'import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, TextInput, View, SafeAreaView, SectionList, StatusBar, Dimensions, Button, Linking, TouchableOpacity } from "react-native";
+import { BackspaceButton } from './BackspaceButton/index' //change import path
 
-    const windowHeight = Dimensions.get('window').height;
-    //its Vertical paddings
-    const [height, setHe] = useState(windowHeight / 100 * 40);
+export const SelectList = () => {
+    const contactsHashProt = {}
+    const [contactHash, setContactHash] = useState({});
+    const [contacts, setContacts] = useState([
+        {
+            displayName: 'a A'
+        }, {
+            displayName: 's A'
+        }, {
+            displayName: 'h A'
+        }, {
+            displayName: 'кеу A'
+        }, {
+            displayName: 'Dima A'
+        }, {
+            displayName: 'Asfasfas A'
+        }, {
+            displayName: 'asfasfas Attwata'
+        }, {
+            displayName: 'dima lglglglglgllg'
+        }, {
+            displayName: 'Dima AD'
+        }, {
+            displayName: 'Dima AS'
+        },
+    ]);
 
-    const SetHeightScreen = () => {
-        return {
-            backgroundColor: 'red',
-            paddingVertical: height / 8,
-            width: 100,
-        };
-    };
+    useEffect(() => {
+        let a = contacts
+            .sort((a, b) => a.displayName !== b.displayName ? a.displayName < b.displayName ? -1 : 1 : 0);
 
-    const OpenURLButton = ({buttonLinkButton, url, children, stylesText }) => {
-        const handlePress = useCallback(async () => {
-            await Linking.openURL(url);
-        }, [url]);
-
-        return (
-            <TouchableOpacity onPress={handlePress} style={buttonLinkButton}>
-                <Text style={stylesText}>{children}</Text>
-            </TouchableOpacity>
-        );
-    };
-
-    const supportedURL = 'https://www.google.com/';
+        contacts.forEach(el => {
+            const name = el.displayName.substr(0, 1).toUpperCase();
+            if (name in contactsHashProt) {
+                contactsHashProt[name].push(el);
+                return
+            }
+            contactsHashProt[name] = [el];
+        })
+        setContactHash(contactsHashProt);
+    }, [])
 
     return (
         <View>
-            <Text>
-                My height - {height / 8}
-            </Text>
-            <View style={SetHeightScreen()}>
-                <BackspaceButton />
-            </View>
-
-            <View style={{ backgroundColor: '#ECEEFE', paddingHorizontal: 55, flexDirection: "row", justifyContent: 'flex-start' }}>
-                <Text >
-                    By creating an account, you are agreeing
-                    to our
-                </Text>
-                <OpenURLButton url={supportedURL} stylesText={styles.textLink}>
-                    Trems of Use
-                    </OpenURLButton>
-                {/* <Text style={{color: theme.colors.mainBlue}}>&</Text>  */}
-                <OpenURLButton url={supportedURL} stylesText={styles.textLink}>
-                    Privacy Policy
-                </OpenURLButton>
-            </View>
-
-
-
-
-
-
-
-
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <View style={{ flex: 1, marginTop: 9, borderBottomWidth: 1, borderBottomColor: '#CBD2D9' }}>
-
-                </View>
-                <Text style={{ color: '#002B36', marginTop: 25, marginBottom: 15, marginHorizontal: 9, textAlign: 'center', fontSize: 20 }}>
-                    OR
-                </Text>
-
-                <View style={{ flex: 1, marginTop: 9, borderBottomWidth: 1, borderBottomColor: '#CBD2D9' }}>
-
-                </View>
-            </View>
-            <View>
-                <Text style={{ color: '#002B36', textAlign: 'center', marginBottom: 15 }}>
-                    You can import your details from
-                </Text>
-            </View>
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <OpenURLButton stylesText={styles.textLinkButton} buttonLinkButton={[styles.buttonLinkButton, styles.mr20]}>
-                    Google
-                    </OpenURLButton>
-                <OpenURLButton stylesText={styles.textLinkButton} buttonLinkButton={styles.buttonLinkButton}>
-                    Facebook
-                    </OpenURLButton>
-            </View>
+            {
+                Object.entries(contactHash).map(([key, v]) => {
+                    return (
+                        <View key={key} style={{marginBottom: 10}}>
+                            <Text>{key}</Text>
+                            {
+                                v.map(el=>{
+                                    return(
+                                        <View key={el.displayName}>
+                                            <Text>{el.displayName}</Text>
+                                        </View>
+                                    )
+                                })
+                            }
+                        </View>
+                    )
+                })
+            }
         </View>
-
-
-
     );
 };
 
@@ -101,7 +88,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         fontSize: 14
     },
-    buttonLinkButton:{
+    buttonLinkButton: {
         borderColor: '#CBD2D9',
         borderWidth: 1,
         borderRadius: 5,
@@ -110,7 +97,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16
     },
     mr20: {
-        marginRight :20,
+        marginRight: 20,
     },
     textLinkButton: {
         // color: theme.colors.mainBlue,
@@ -134,3 +121,60 @@ const styles = StyleSheet.create({
         fontSize: 24
     }
 });
+ы A'
+        }, {
+            displayName: 'кеу A'
+        }, {
+            displayName: 'Dima A'
+        }, {
+            displayName: 'Asfasfas A'
+        }, {
+            displayName: 'asfasfas Attwata'
+        }, {
+            displayName: 'dima lglglglglgllg'
+        }, {
+            displayName: 'Dima AD'
+        }, {
+            displayName: 'Dima AS'
+        },
+    ]);
+
+    useEffect(() => {
+        let a = contacts
+            .sort((a, b) => a.displayName !== b.displayName ? a.displayName < b.displayName ? -1 : 1 : 0);
+
+        contacts.forEach(el => {
+            const name = el.displayName.substr(0, 1).toUpperCase();
+            if (name in contactsHashProt) {
+                contactsHashProt[name].push(el);
+                return
+            }
+            contactsHashProt[name] = [el];
+        })
+        setContactHash(contactsHashProt);
+    }, [])
+
+    return (
+        <View>
+            {
+                Object.entries(contactHash).map(([key, v]) => {
+                    return (
+                        <View key={key} style={{marginBottom: 10}}>
+                            <Text>{key}</Text>
+                            {
+                                v.map(el=>{
+                                    return(
+                                        <View key={el.displayName}>
+                                            <Text>{el.displayName}</Text>
+                                        </View>
+                                    )
+                                })
+                            }
+                        </View>
+                    )
+                })
+            }
+        </View>
+    );
+};
+
